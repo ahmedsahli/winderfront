@@ -1,0 +1,102 @@
+<div class="container mx-auto my-5 px-3 py-3 sm:px-7 md:my-7 md:px-5 lg:my-10 xl:my-14">
+  <div class="flex">
+    <aside
+      class="absolute left-0 z-[5] translate-x-[-150%] rounded-r-lg border bg-[#F3FFFC] py-5 pl-7 pr-7 shadow-2xl transition sm:left-auto sm:rounded-l-xl sm:pl-8 sm:pr-8 lg:relative lg:z-0 lg:w-[30%] lg:translate-x-0 lg:rounded-none lg:border-none lg:bg-transparent lg:py-0 lg:pl-0 lg:shadow-none xl:w-[25%] 2xl:pr-10">
+      <div class="flex items-center justify-between lg:block">
+        <h4 class="text-xl font-semibold text-zinc-800">Filter By</h4>
+        <button class="block text-zinc-700 transition hover:text-zinc-500 lg:hidden"></button>
+      </div>
+      <div class="mt-3 border-b-2 border-zinc-200 py-4">
+        <div class="mb-4 flex cursor-pointer items-center justify-between">
+          <span class="text-[17px] font-semibold text-zinc-800">Skills</span>
+        </div>
+        <p-multiSelect
+          [options]="skills | async"
+          [(ngModel)]="filters.skills"
+          defaultLabel="Select a skill "
+          (ngModelChange)="onFilterChange()"
+          optionLabel="label"
+          display="chip"></p-multiSelect>
+      </div>
+      <div class="mt-1 border-b-2 border-zinc-200 py-4">
+        <div class="flex cursor-pointer items-center justify-between">
+          <span class="text-[17px] font-semibold text-zinc-800">Job experience </span>
+          <span class="rotate-180 text-2xl font-semibold text-zinc-800 transition hover:text-zinc-600"></span>
+        </div>
+        <div>
+          <div *ngFor="let experience of experiences" class="my-4 flex items-center space-x-3">
+            <p-radioButton
+              [inputId]="experience.label"
+              name="category"
+              [value]="experience.value"
+              [(ngModel)]="filters.experience"
+              (ngModelChange)="onFilterChange()"></p-radioButton>
+            <label [for]="experience.label" class="ml-2">{{ experience.label }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-1 border-b-2 border-zinc-200 py-4">
+        <div class="flex cursor-pointer items-center justify-between">
+          <span class="text-[17px] font-semibold text-zinc-800">Project length</span
+          ><span class="rotate-180 text-2xl font-semibold text-zinc-800 transition hover:text-zinc-600"></span>
+        </div>
+        <div>
+          <div *ngFor="let duration of durations" class="my-4 flex items-center space-x-3">
+            <p-radioButton [inputId]="duration.label" name="category" [value]="duration.value" [(ngModel)]="filters.duration" (ngModelChange)="onFilterChange()"></p-radioButton>
+            <label [for]="duration.label" class="ml-2">{{ duration.label }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-1 py-4">
+        <div class="flex cursor-pointer items-center justify-between">
+          <span class="text-[17px] font-semibold text-zinc-800">Rate per hour</span
+          ><span class="rotate-180 text-2xl font-semibold text-zinc-800 transition hover:text-zinc-600"></span>
+        </div>
+        <div class="flex pt-4">
+          <div class="grid grid-cols-12">
+            <div class="col-span-6">
+              <label class="w-full text-left text-sm font-medium">From</label>
+              <div class="flex gap-2">
+                <input class="budgetInputWitdh" [(ngModel)]="filters.budgetFrom" (ngModelChange)="onFilterChange()" pInputText type="number" />
+                <small class="mt-4">/TND</small>
+              </div>
+            </div>
+            <div class="col-span-6">
+              <label class="w-full text-left text-sm font-medium">To</label>
+              <div class="flex gap-2">
+                <input class="budgetInputWitdh" (ngModelChange)="onFilterChange()" [(ngModel)]="filters.budgetTo" pInputText type="number" />
+                <small class="mt-4">/TND</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <div class="block w-full">
+      <div class="flex justify-end p-2">
+        <p-button label="Post a job" styleClass="p-button-secondary p-button-rounded" routerLink="/project/post-project"></p-button>
+      </div>
+
+      <div class="w-full rounded-xl border-gray-300 sm:border lg:w-[100%] 2xl:w-[100%]">
+        <div class="border-b border-gray-300 px-1.5 pb-7 sm:px-7 sm:py-7">
+          <div class="flex justify-end lg:hidden"></div>
+          <div class="mt-5 lg:mt-0">
+            <span class="p-input-icon-right w-full">
+              <i class="pi pi-search"></i>
+              <input class="w-full" type="text" [(ngModel)]="filters.title" (ngModelChange)="onFilterChange()" pInputText />
+            </span>
+            <div class="mt-2"><a class="cursor-pointer font-semibold text-zinc-800 hover:text-[#525554fd] hover:underline">Advanced search// to do</a></div>
+          </div>
+          <div class="mt-5 flex flex-col justify-between space-y-5 sm:flex-row sm:items-center sm:space-y-0">
+            <div class="text-zinc-700">
+              <span class="font-semibold text-zinc-800"> {{ this.projects?.length }} </span> jobs found
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let project of projects | filter : filters">
+          <winder-project-element [project]="project"></winder-project-element>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+.animate-b-t {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 2s ease-in;
+  animation-name: slideInFromBottom;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+.animate-t-b {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s ease-in;
+  animation-name: slideInFromTop;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+animation-wrapper {
+  width: 50%;
+  padding-bottom: 50%;
+}
+
+@keyframes appear-from-behind {
+  0% {
+    transform: translateZ(-1000px) translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+.appear-from-behind {
+  animation: appear-from-behind 1.5s ease-out;
+  animation-fill-mode: forwards;
+}

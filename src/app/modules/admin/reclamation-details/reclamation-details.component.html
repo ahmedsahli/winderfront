@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <style>
+
+  </style>
+</head>
+<body>
+<div class="main-block">
+  <h1><b>Complaint Detail</b></h1>
+  <form>
+  <hr>
+  <h2><b>Type: </b> {{ reclamation.type }}</h2>
+  <h2><b>Contenu: </b>{{ reclamation.contenuRec }}</h2>
+   <h2><b>Date d'envoi:</b> {{ reclamation.sendingDate | date }}</h2>
+
+  <div *ngIf="reclamation.responses.length > 0">
+    <h2 *ngFor="let response of reclamation.responses" class="center"><b>Réponses: </b> {{ response.description }} </h2>
+</div>
+
+  <div *ngIf="reclamation.responses.length === 0" >
+      <h2>Aucune réponse disponible.</h2>
+      <div class="response-form" *ngIf="reclamation">
+        <h2><b>Réponse de l'admin:</b></h2>
+        <form (ngSubmit)="submitResponse()" #responseForm="ngForm">
+          <textarea pInputTextarea placeholder="response..." name="description" [(ngModel)]="response.description" required></textarea>
+          <br>
+
+          <button type="submit" [disabled]="responseForm.invalid" class="btn-green">Envoyer la réponse</button>
+        </form>
+      </div>
+    </div>
+<p-toast></p-toast>
+
+
+
+
+
+              <hr>
+
+
+
+              <hr>
+
+
+            </form>
+          </div>
+          </body>
+          </html>
+
+
+
+

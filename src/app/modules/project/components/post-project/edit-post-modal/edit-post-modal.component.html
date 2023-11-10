@@ -1,0 +1,53 @@
+<form [formGroup]="postForm">
+  <ng-container *ngIf="this.field === 'title'">
+    <input formControlName="title" class="w-full" type="text" pInputText />
+    <small *ngIf="!postForm.controls['title'].valid && postForm.controls['title'].dirty" id="username-help" class="p-error mt-1">Title is required</small>
+  </ng-container>
+  <ng-container *ngIf="this.field === 'skills'">
+    <p-multiSelect class="w-full" [filter]="true" display="chip" [options]="skillList | async" optionLabel="label" formControlName="skills"></p-multiSelect>
+    <div class="grid">
+      <small *ngIf="!postForm.controls['skills'].valid && postForm.controls['skills'].dirty" id="username-help" class="p-error mt-1">At least 1 skill is required</small>
+      <div class="inline">
+        <i class="pi pi-star-fill mr-2 mt-2" style="color: #16a34a"></i>
+        <span style="color: #16a34a">For the best results, add 3-5 skills </span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.field === 'scope'">
+    <div *ngFor="let scope of scopes" class="field-checkbox">
+      <div class="mb-5 grid gap-3">
+        <div class="gap-2">
+          <p-radioButton [value]="scope.label" formControlName="scope"></p-radioButton>
+          <label [for]="scope.label" class="ml-2 text-sm font-semibold">{{ scope.label }}</label>
+        </div>
+        <small class="ml-5 font-medium text-zinc-700">{{ scope.description }}</small>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.field === 'duration'">
+    <div *ngFor="let duration of durations" class="field-checkbox">
+      <div class="mb-5 grid gap-3">
+        <div class="gap-2">
+          <p-radioButton [value]="duration.label" formControlName="duration"></p-radioButton>
+          <label [for]="duration.label" class="ml-2 text-sm font-semibold">{{ duration.label }}</label>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.field === 'experience'">
+    <div *ngFor="let experience of experiences" class="field-checkbox">
+      <div class="mb-5 grid gap-3">
+        <div class="gap-2">
+          <p-radioButton [value]="experience.label" formControlName="experience"></p-radioButton>
+          <label [for]="experience.label" class="ml-2 text-sm font-semibold">{{ experience.label }}</label>
+        </div>
+        <small class="ml-5 font-medium text-zinc-700">{{ experience.description }}</small>
+      </div>
+    </div>
+  </ng-container>
+</form>
+<div class="absolute bottom-[10%] right-[38%]">
+  <div class="flex justify-center">
+    <p-button [label]="'Update : ' + this.field" icon="pi pi-check" styleClass="p-button-success right-button" (click)="updatePost()"></p-button>
+  </div>
+</div>

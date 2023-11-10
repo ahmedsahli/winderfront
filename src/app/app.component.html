@@ -1,0 +1,17 @@
+<!-- note that the bar is only for testing purposes if you happen to see my face do not be worried  -->
+<p-megaMenu *ngIf="router.url !== '/'" [model]="items"></p-megaMenu>
+<p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
+  <div class="p-grid p-nogutter">
+    <div class="p-col-3">
+      <i class="pi pi-fw pi-user profile-icon"></i>
+    </div>
+    <div class="p-col-9">
+      <h3>{{ prenom }}</h3>
+      <h3>{{ name }}</h3>
+      <p>{{ email }}</p>
+      <a routerLink="/profile-details"> Update Profile </a>
+    </div>
+  </div>
+</p-dialog>
+
+<router-outlet></router-outlet>

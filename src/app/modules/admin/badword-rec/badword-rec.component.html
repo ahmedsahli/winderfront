@@ -1,0 +1,63 @@
+<div class="container" >
+  <div class="flex justify-center" >
+    <h2>Liste des mots interdits</h2>
+
+  </div>
+  <div class="flex justify-end mr-8">
+    <button type="submit" class="btn btn-primary" routerLink="/admin/add-badword-rec" >Ajouter un mot interdit</button>
+
+  </div>
+
+  <div class="flex justify-center ml-48" >
+
+
+    <div class="card">
+      <p-table [value]="badWords" [paginator]="true" [rows]="6" [tableStyle]="{'min-width': '60rem'}">
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            Mots Interdits
+
+          </div>
+        </ng-template>
+
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>#</th>
+            <th>Mot interdit</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-badWord>
+          <tr>
+            <td>{{ badWord.id }}</td>
+            <td>{{ badWord.word }}</td>
+            <td>
+
+              <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-danger" (click)="deleteBadWord(badWord.id)"></p-button>
+
+            </td>
+
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            In total there are {{badWords ? badWords.length : 0 }} badWords.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+    <br><br>
+
+
+    <br><br>    <br>
+
+
+    <br><br><br><br>
+
+
+    <p-toast></p-toast>
+  </div>
+
+</div>

@@ -1,0 +1,36 @@
+<div class="card">
+  <p-table [value]="users | async" [paginator]="true" [rows]="6" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        Users
+        <p-button icon="pi pi-refresh" (click)="this.loadUsers()"></p-button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Prenom</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>PhoneNumber</th>
+        <th>Gender</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.nom }}</td>
+        <td>{{ user.prenom }}</td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.email}}</td>
+        <td>{{ user.phoneNumber}}</td>
+        <td>{{ user.gender}}</td>
+        <td><p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-danger" (click)="delete(user.userName)"></p-button></td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex items-center justify-between">In total there are {{ users ? (users | async)?.length : 0 }} Users.</div>
+    </ng-template>
+  </p-table>
+</div>
+

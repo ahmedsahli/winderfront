@@ -1,0 +1,272 @@
+<ng-container *ngIf="step <= 5">
+  <div class="container flex content-center justify-center">
+    <div class="grid grid-cols-12">
+      <div class="col-span-5 m-0 p-1">
+        <div class="inline leading-5">
+          <small class="mr-2 text-gray-500">{{ step }}/5</small>
+          <span>{{ stepLabel[step - 1] }}</span>
+        </div>
+
+        <h2>{{ leftPanelHeader[step - 1] }}</h2>
+        <p>{{ leftPanelContent[step - 1] }}</p>
+
+        <ng-container *ngIf="step === 5" class="block">
+          <label class="w-full text-left text-sm font-medium">Talent are looking for: </label>
+
+          <ul class="pl-5" id="disc">
+            <li>Clear expectations about your task or deliverables</li>
+            <li>The skills required for your work</li>
+            <li>Good communication</li>
+            <li>Details about how you or your team like to work</li>
+          </ul>
+        </ng-container>
+      </div>
+      <div class="col-span-1 h-full" style="width: 100px">
+        <p-divider layout="vertical"> </p-divider>
+      </div>
+      <form class="col-span-6 w-full font-bold" [formGroup]="postForm">
+        <ng-container *ngIf="step !== 3 && step !== 4">
+          <h4>{{ rightPanelHeader[step - 1] }}</h4>
+        </ng-container>
+
+        <!-- louled here is an an example of how to use the formControlName and fromGroup with validation and error messages  -->
+        <div class="mb-7 w-full">
+          <ng-container *ngIf="step === 1">
+            <input formControlName="title" class="w-full" type="text" pInputText />
+            <small *ngIf="!postForm.controls['title'].valid && postForm.controls['title'].dirty" id="username-help" class="p-error mt-1">Title is required</small>
+          </ng-container>
+
+          <ng-container *ngIf="step === 2">
+            <p-multiSelect class="w-full" [filter]="true" display="chip" [options]="skills | async" formControlName="skills"></p-multiSelect>
+            <div class="grid">
+              <small *ngIf="!postForm.controls['skills'].valid && postForm.controls['skills'].dirty" id="username-help" class="p-error mt-1">At least 1 skill is required</small>
+              <div class="inline">
+                <i class="pi pi-star-fill mr-2 mt-2" style="color: #16a34a"></i>
+                <span style="color: #16a34a">For the best results, add 3-5 skills </span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="step === 3">
+            <ng-container *ngIf="!this.postForm.get('scope')?.value">
+              <div *ngFor="let scope of scopes" class="field-checkbox">
+                <div class="mb-5 grid gap-3">
+                  <div class="gap-2">
+                    <p-radioButton [value]="scope.label" formControlName="scope"></p-radioButton>
+                    <label [for]="scope.label" class="ml-2 text-sm font-semibold">{{ scope.label }}</label>
+                  </div>
+                  <small class="ml-5 font-medium text-zinc-700">{{ scope.description }}</small>
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="this.postForm.get('scope')?.value" class="mt-5 flex">
+              <h4>{{ this.postForm.get('scope')?.value }}</h4>
+              <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editRadio('scope')"></i>
+            </div>
+
+            <ng-container *ngIf="!this.postForm.get('duration')?.value && this.postForm.controls['scope'].dirty">
+              <h4>How long will your work take?</h4>
+              <div *ngFor="let duration of durations" class="field-checkbox">
+                <div class="mb-5 grid gap-3">
+                  <div class="gap-2">
+                    <p-radioButton [value]="duration.label" formControlName="duration"></p-radioButton>
+                    <label [for]="duration.label" class="ml-2 text-sm font-normal">{{ duration.label }}</label>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="this.postForm.get('duration')?.value" class="mt-5 flex">
+              <h4>{{ this.postForm.get('duration')?.value }}</h4>
+              <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editRadio('duration')"></i>
+            </div>
+
+            <ng-container *ngIf="!this.postForm.get('experience')?.value && this.postForm.controls['duration'].dirty">
+              <h4>What level of experience will it need?</h4>
+              <div *ngFor="let experience of experiences" class="field-checkbox">
+                <div class="mb-5 grid gap-3">
+                  <div class="gap-2">
+                    <p-radioButton [value]="experience.label" formControlName="experience"></p-radioButton>
+                    <label [for]="experience.label" class="ml-2 text-sm font-normal">{{ experience.label }}</label>
+                  </div>
+                  <small class="ml-5 font-medium text-zinc-700">{{ experience.description }}</small>
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="this.postForm.get('experience')?.value" class="mt-5 flex">
+              <h4>{{ this.postForm.get('experience')?.value + ' level' }}</h4>
+              <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editRadio('experience')"></i>
+            </div>
+          </ng-container>
+
+          <ng-container class="grid grid-cols-12" *ngIf="step === 4">
+            <div class="grid grid-cols-12">
+              <div class="col-span-6">
+                <label class="w-full text-left text-sm font-medium">From</label>
+                <div class="flex gap-2">
+                  <p-inputNumber class="budgetInputWitdh" formControlName="budgetFrom" suffix=" TND"> </p-inputNumber>
+                  <span class="mt-4">/Hour</span>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label class="w-full text-left text-sm font-medium">To</label>
+                <div class="flex gap-2">
+                  <p-inputNumber class="budgetInputWitdh" formControlName="budgetTo" suffix=" TND"> </p-inputNumber>
+                  <span class="mt-4">/Hour</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid pt-[3%]">
+              <span class="text-sm text-zinc-700">This is the average rate for similar projects. </span>
+              <span class="w-[85%]"
+                >Professionals tend to charge <b>20TND</b> - <b>50TND</b> /hour (TND) for web development projects like yours. Experts may charge higher rates.</span
+              >
+            </div>
+
+            <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+          </ng-container>
+
+          <ng-container *ngIf="step === 5">
+            <div class="mb-6 grid">
+              <!-- 
+                to do :
+                <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>  -->
+              <textarea
+                placeholder="Already have a description? Paste it here!"
+                rows="8"
+                cols="40"
+                minlength="50"
+                [autoResize]="true"
+                formControlName="description"
+                pInputTextarea></textarea>
+              <small *ngIf="!postForm.controls['description'].valid && postForm.controls['description'].dirty" id="username-help" class="p-error mt-1"
+                >At least 50 caracters is required</small
+              >
+              <p-message
+                styleClass="pt-8"
+                *ngIf="this.postForm.get('description')?.value.length < 200 && postForm.controls['description'].valid"
+                severity="warn"
+                text="Your description looks a little short. Add details like your project milestones and a bit about your team."></p-message>
+
+              <span class="pt-8 font-light text-zinc-700">Need help?</span>
+              <a href="https://resources.workable.com/job-descriptions/" target="_blank" class="text-sm font-medium text-green-600 hover:underline"
+                >Use our job description templates</a
+              >
+            </div>
+
+            <p-fileUpload mode="basic" chooseLabel="Attach file" styleClass="p-button-success"></p-fileUpload>
+          </ng-container>
+        </div>
+
+        <ng-container *ngIf="step === 1" class="block">
+          <label class="w-full text-left text-sm font-medium">Example titles </label>
+
+          <ul id="disc">
+            <li>UX/UI designer to bring website mockup and prototype to life</li>
+            <li>Video editor needed to create whiteboard explainer video</li>
+            <li>UX designer with e-commerce experience to support app development</li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngIf="step === 2" class="block">
+          <label class="w-full text-left text-sm font-medium">Popular skills for Web Development</label>
+          <div class="card align-items-center mt-7 flex flex-wrap gap-2">
+            <p-chip *ngFor="let skill of skills | async" [label]="skill.label"></p-chip>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+  <p-footer>
+    <div class="mb-20 w-full">
+      <p-progressBar class="custom-progress" [value]="progress" [style]="{ height: '6px ' }"> </p-progressBar>
+    </div>
+    <div class="button-container">
+      <p-button *ngIf="step > 1" label="Back" icon="pi pi-arrow-left" styleClass="p-button-outlined p-button-success left-button" (onClick)="setStepBack()"></p-button>
+      <p-button
+        [disabled]="!this.postForm.controls[formGroupNames[step - 1]].valid"
+        [label]="'Next : ' + stepLabel[step]"
+        icon="pi pi-check"
+        styleClass="p-button-success right-button"
+        (onClick)="setStepForward()"></p-button>
+    </div>
+  </p-footer>
+</ng-container>
+<ng-container *ngIf="step > 5">
+  <div class="container">
+    <div class="review-header flex justify-between">
+      <h2 class="text-2xl font-bold">Job details</h2>
+      <div class="flex-end">
+        <p-button label="Post this Job" icon="pi pi-send" styleClass="p-button p-button-success" (click)="postProject()"></p-button>
+      </div>
+    </div>
+    <div class="space-y-5 rounded-lg border border-gray-300 px-1.5 py-7 sm:px-7">
+      <div class="flex justify-between">
+        <label class="font-semibold text-zinc-700">{{ this.postForm.get('title')?.value }}</label>
+
+        <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editModal('title')"></i>
+      </div>
+      <p-divider></p-divider>
+      <div class="flex justify-between">
+        <span [innerHTML]="" class="font-semibold text-zinc-700">{{ this.postForm.get('description')?.value }}</span>
+
+        <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="this.step = 5"></i>
+      </div>
+      <p-divider></p-divider>
+      <label class="font-semibold text-zinc-700">Skills</label>
+
+      <div class="flex flex-wrap items-center space-x-2 space-y-1">
+        <p-chip class="mr-1 mt-2" *ngFor="let skill of this.postForm.get('skills')?.value" [label]="skill.label"></p-chip>
+        <div class="flex justify-center"></div>
+        <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editModal('skills')"></i>
+      </div>
+
+      <p-divider></p-divider>
+
+      <div class="grid">
+        <label class="font-semibold text-zinc-700">Scope</label>
+        <div class="mt-4">
+          <label class="text-sm">{{ this.postForm.get('scope')?.value }}</label>
+          <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editModal('scope')"></i>
+        </div>
+      </div>
+      <div class="grid">
+        <label class="font-semibold text-zinc-700">Duration</label>
+        <div class="mt-4">
+          <label class="text-sm">{{ this.postForm.get('duration')?.value }}</label>
+          <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editModal('duration')"></i>
+        </div>
+      </div>
+      <div class="grid">
+        <label class="font-semibold text-zinc-700">Experience</label>
+        <div class="mt-4">
+          <label class="text-sm">{{ this.postForm.get('experience')?.value }} level</label>
+          <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editModal('experience')"></i>
+        </div>
+      </div>
+      <div class="grid">
+        <label class="font-semibold text-zinc-700">Budget</label>
+        <div class="mt-4">
+          <label class="text-sm">
+            <b> {{ this.postForm.get('budgetFrom')?.value }} </b> TND - <b> {{ this.postForm.get('budgetTo')?.value }}</b
+            >TND/Hour</label
+          >
+          <i class="pi pi-file-edit ml-3 cursor-pointer" style="color: #16a34a" (click)="editModal('budget')"></i>
+        </div>
+      </div>
+      <p-divider></p-divider>
+      <p-accordion [multiple]="true">
+        <p-accordionTab header="Screening questions (optional)">
+          <p>To do</p>
+        </p-accordionTab>
+        <p-divider></p-divider>
+        <p-accordionTab header="Advanced preferences (optional)">
+          <p>To do</p>
+        </p-accordionTab>
+      </p-accordion>
+      <div class="flex justify-between">
+        <p-button label="Back" icon="pi pi-arrow-left" styleClass="p-button-outlined p-button-success" (onClick)="setStepBack()"></p-button>
+        <p-button label="Post this Job" icon="pi pi-send" styleClass="p-button-success" (click)="postProject()"></p-button>
+      </div>
+    </div>
+  </div>
+</ng-container>

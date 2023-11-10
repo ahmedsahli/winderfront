@@ -1,0 +1,41 @@
+<div class="card">
+  <p-table [value]="projects | async" [paginator]="true" [rows]="6" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        Products
+        <p-button icon="pi pi-refresh" (click)="this.loadProjects()"></p-button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Eperience</th>
+        <th>Creation Date</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td>{{ project.title }}</td>
+        <td>{{ project.duration }}</td>
+        <td>{{ project.experience }}</td>
+        <td>{{ project.createdAt | date }}</td>
+        <td>
+          <p-button (click)="showDialog()" styleClass="p-button-success" icon="pi pi-external-link" label="Show"></p-button>
+          <p-dialog [header]="'Description of ' + project.title" [(visible)]="visible" [style]="{ width: '50vw', height: '300px' }" [maximizable]="true">
+            <p>{{ project.description }}}</p>
+          </p-dialog>
+        </td>
+        <td>
+          <p-button pTooltip="Delete project" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger" style="margin-right: 10px" (click)="delete(project.id)"></p-button>
+          <p-button pTooltip="Pay Freelancer " icon="pi pi-dollar" styleClass="p-button-rounded p-button-success" (click)="payUser()"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex items-center justify-between">In total there are {{ projects ? (projects | async)?.length : 0 }} projects.</div>
+    </ng-template>
+  </p-table>
+</div>

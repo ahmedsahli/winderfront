@@ -1,0 +1,23 @@
+                    
+    <h3>-Description</h3>
+    <p>{{ test.description }}</p>
+    <p-divider></p-divider>
+    <h3>-Stack</h3>
+    <p>{{ test.stack }}</p>
+    <p-divider></p-divider>
+    <h3>-Level</h3>
+    <p>{{ test.level }}</p>
+    <p-divider></p-divider>
+    <div *ngFor="let question of test.questions">
+    <h3>-question:</h3>
+    <p>{{ question.text }}</p>
+    <p-divider></p-divider>
+    <h3>*correct answer</h3>
+    <p>{{ question.text }}</p>
+    <p-divider></p-divider>
+    <div *ngFor="let option of question.options">
+        <h3>*option: </h3>
+        <p>{{ option.text }}</p>
+        <p-divider></p-divider>
+    </div>
+    </div>

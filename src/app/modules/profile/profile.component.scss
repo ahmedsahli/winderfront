@@ -1,0 +1,13 @@
+.profile-icon {
+  font-size: 3rem;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+:host {
+  z-index: 1000;
+}

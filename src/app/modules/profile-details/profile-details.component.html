@@ -1,0 +1,38 @@
+<div class="card-container" class="profile-card">
+  <div class="card">
+    <div class="card-header">
+    <h2>Profile Details</h2>
+<div class="p-grid p-nogutter">
+  <div class="p-col-3">
+    <i class="pi pi-fw pi-user profile-icon"></i>
+  </div>
+  <div class="p-col-9">
+    <form (ngSubmit)="onSubmit()" #profileForm="ngForm" class="card-body">
+      <div class="form-group">
+        <label for="nom">Nom:</label>
+        <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="user.nom" required>
+      </div>
+      <div class="form-group">
+        <label for="prenom">Prenom:</label>
+        <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="user.prenom" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" required>
+      </div>
+      <div class="form-group">
+        <label for="userName">User Name:</label>
+        <input type="text" class="form-control" id="userName" name="userName" [(ngModel)]="user.userName" required>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <input type="text" class="form-control" id="gender" name="gender" [(ngModel)]="user.gender" required>
+      </div>
+      <button class="profile-card" type="submit" [disabled]="!profileForm.valid">Submit</button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>

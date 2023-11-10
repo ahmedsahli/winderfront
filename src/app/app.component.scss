@@ -1,0 +1,10 @@
+::ng-deep .p-megamenu {
+  background-color: rgba(138, 147, 153, 0.001);
+}
+
+::ng-deep .p-megamenu-horizontal .p-megamenu-root-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: calc(100% - 1.5rem);
+  justify-content: center;
+}

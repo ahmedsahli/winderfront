@@ -1,0 +1,76 @@
+<!--<form class="reclamation-form" (ngSubmit)="addReclamation()" #reclamationForm="ngForm">-->
+<!--<h2>Add Reclamation</h2>-->
+<!--  <div class="form-group">-->
+
+<!--    <div class="card flex justify-content-center">-->
+<!--      <div class="flex flex-column gap-2">-->
+<!--        <label htmlFor="type">Type</label>-->
+<!--        <input pInputText placeholder="Enter your type of reclamation" size="30" name="type" id="type" aria-describedby="username-help" [(ngModel)]="reclamation.type" />-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+
+
+<!--    <div class="card flex justify-content-center">-->
+<!--      <div class="flex flex-column gap-2">-->
+<!--        <label htmlFor="contenuRec">Contenu</label>-->
+<!--        <input pInputText placeholder="Enter your content of reclamation" size="30" name="contenuRec" id="contenuRec" aria-describedby="username-help" [(ngModel)]="reclamation.contenuRec" />-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+
+
+
+<!--  <div class="button-group">-->
+<!--    <button type="submit" class="btn btn-primary" [disabled]="reclamationForm.invalid">Ajouter la réclamation</button>-->
+<!--    <br><br>    <br>-->
+
+<!--&lt;!&ndash;    <button type="button" class="btn btn-secondary" (click)="resetForm()">Réinitialiser</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <br><br><br><br>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a class="btn btn-secondary" routerLink="/project/reclamations">Liste des réclamations</a>&ndash;&gt;-->
+<!--  </div>-->
+<!--</form>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Add Reclamation</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+</head>
+<body>
+<form class="decor" (ngSubmit)="addReclamation()" #reclamationForm="ngForm" >
+  <div class="form-left-decoration"></div>
+  <div class="form-right-decoration"></div>
+  <div class="circle"></div>
+  <div class="form-inner">
+    <h1>Add Reclamation</h1>
+    <label htmlFor="type"></label>
+    <input id="type" type="text" placeholder="type" name="type"  [(ngModel)]="reclamation.type" >
+<!--    <input type="email" placeholder="Email">-->
+    <label htmlFor="contenuRec"></label>
+    <textarea name="contenuRec" id="contenuRec" placeholder="Contenu de reclamation..." rows="5" [(ngModel)]="reclamation.contenuRec"></textarea>
+    <button type="submit" [disabled]="reclamationForm.invalid">Ajouter la réclamation</button>
+    <button type="button" (click)="resetForm()">Réinitialiser</button>
+    <button type="button"  routerLink="/project/reclamations">Liste des réclamations</button>
+
+  </div>
+</form>
+</body>
+</html>

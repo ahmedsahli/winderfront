@@ -1,0 +1,50 @@
+:host ::ng-deep .ui-chips .ui-chips-token {
+  background-color: red; /* replace with your desired background color */
+  border: none !important;
+  padding: 0;
+  margin: 0;
+  height: auto;
+  font-size: 14px; /* replace with your desired font size */
+}
+
+.invite-btn-container {
+  position: relative;
+}
+
+.invite-btn-container button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+:host ::ng-deep .p-chip.custom-chip {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+}
+
+.animation-wrapper {
+  width: 50%;
+  padding-bottom: 50%;
+}
+
+.sphere-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 580px;
+  height: 580px;
+  margin: -290px 0 0 -290px;
+}
+
+.sphere path {
+  fill: url(#sphereGradient);
+  stroke-width: 1px;
+  stroke: rgba(80, 80, 80, 0.35);
+  backface-visibility: hidden;
+}
+
+@media (min-width: 500px) {
+  .sphere path {
+    stroke-width: 0.4px;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #proposalForm="ngForm">
+    <label for="minPrice">Min price:</label>
+    <input type="number" class="form-control" id="minPrice" name="minPrice" [(ngModel)]="proposal.minPrice" required min="0" [max]="proposal.maxPrice" />
+
+    <label for="maxPrice">Max price:</label>
+    <input type="number" class="form-control" id="maxPrice" name="maxPrice" [(ngModel)]="proposal.maxPrice" required min="0" [min]="proposal.minPrice" />
+
+    <button type="submit" class="btn btn-success" style="margin-top: 1rem" data-bs-dismiss="modal">Search</button>
+
+    <div *ngIf="proposalForm.submitted && proposalForm.invalid" class="alert alert-danger mt-3">
+      <div *ngIf="proposalForm.controls['minPrice'].invalid && proposalForm.controls['minPrice'].dirty && !proposalForm.controls['minPrice'].value">Min price is required</div>
+      <div *ngIf="proposalForm.controls['maxPrice'].invalid && proposalForm.controls['maxPrice'].dirty && !proposalForm.controls['maxPrice'].value">Max price is required</div>
+
+      <div *ngIf="proposalForm.controls['minPrice'].value < proposalForm.controls['minPrice'].value">Min price cannot be greater than Max price</div>
+      <div *ngIf="proposalForm.controls['maxPrice'].dirty">Max price cannot be less than Min price</div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-4" *ngFor="let proposal of proposals">
+      <div class="card" style="width: 18rem">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title">{{ proposal.client | titlecase }}</h5>
+          <p class="card-text"><b>Price </b>{{ proposal.price }}</p>
+          <p class="card-text"><b>State </b>{{ proposal.status }}</p>
+          <p class="card-text"><b>Cover letter </b> {{ proposal.cover_letter }}</p>
+          <a (click)="setclientid(proposal.client)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add proposal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form (ngSubmit)="onSubmit()" #proposalForm="ngForm">
+        <div class="modal-body">
+          <p><b>Client:</b> {{ clientid }}</p>
+
+          <winder-add-proposal></winder-add-proposal>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

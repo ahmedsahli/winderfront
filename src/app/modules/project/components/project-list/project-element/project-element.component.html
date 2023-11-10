@@ -1,0 +1,27 @@
+<div class="space-y-5 border-b border-gray-300 px-1.5 py-7 sm:px-7">
+  <div class="flex flex-col space-y-3">
+    <div class="flex justify-between">
+      <a class="cursor-pointer font-semibold text-zinc-800 hover:text-blue-900 hover:underline" (click)="showProjectDetails = true">{{ project.title }}</a>
+      <p-button icon="pi pi-flag" styleClass="p-button-rounded p-button-danger p-button-text" pTooltip="Report project" (click)="redirect()"></p-button>
+    </div>
+
+    <p-chip
+      [label]="project?.user?.nom + ' ' + project?.user?.prenom"
+      image="https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/318333736_1785673598468603_2444571119857172568_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=gAzI5jiGq2QAX-QIZQ0&_nc_ht=scontent.ftun14-1.fna&oh=00_AfBAif8VDdRyOavMaJHvdND1ponYQ7Q6OUzQ4RIXW2pYmw&oe=645F1F4D"></p-chip>
+    <small class="space-x-1 text-sm text-zinc-500"
+      ><strong>Hourly: {{ project.budgetFrom }}TND -{{ project.budgetTo }}TND</strong><span>-</span><span>{{ project.scope }}</span
+      ><span>-</span><span>Est. Budget:</span><span>{{ project.duration }}, to do</span><span>-</span><span>Posted</span><span>{{ project?.createdAt | date }}</span></small
+    >
+
+    <p class="text-[15px] text-zinc-800">{{ project.description }}</p>
+    <div class="flex flex-wrap items-center space-x-2 space-y-1">
+      <p-chip *ngFor="let skill of project.skills">
+        <small class="m-2 font-bold">{{ skill.label }}</small>
+      </p-chip>
+    </div>
+  </div>
+
+  <p-sidebar [(visible)]="showProjectDetails" styleClass="w-34rem" position="right">
+    <winder-project-details-bar [project]="project"></winder-project-details-bar>
+  </p-sidebar>
+</div>
